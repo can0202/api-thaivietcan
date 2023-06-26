@@ -1,20 +1,22 @@
 'use client';
+import { fetchPostCategory } from '@/app/api/getPostCategory';
 import React, { useState, useEffect } from 'react';
-import { fetchPosts } from './api/getAllPost';
-import CartItem from './components/CartItem';
-import Skeleton from './components/CartItem/Skeleton';
+import { usePathname } from 'next/navigation';
+import CartItem from '@/app/components/CartItem';
+import Skeleton from '@/app/components/CartItem/Skeleton';
 
-export default function Home() {
+const Category = () => {
+  const pathname = usePathname().split('/');
+  const permalink = pathname[2].split('&')[0];
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const fetchAPI = async () => {
     const data = {
+      category: permalink,
       pageSize: 12,
-      post_author_user: '',
     };
-
     if (data) {
-      const results = await fetchPosts(data);
+      const results = await fetchPostCategory(data);
       const items = results?.posts_data ?? [];
       setPosts(items);
       setLoading(true);
@@ -24,10 +26,11 @@ export default function Home() {
     setLoading(false);
     fetchAPI();
   }, []);
+
   return (
     <>
       <div className='home page'>
-        <div className='post__all'>
+        <div className='post__all '>
           {posts?.length == 0 ? (
             <>
               {!loading ? (
@@ -51,4 +54,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Category;

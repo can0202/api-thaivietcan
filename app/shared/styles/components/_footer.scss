@@ -1,0 +1,46 @@
+.footer {
+  padding: 30px 0;
+
+  &__menus {
+    ul {
+      list-style: none;
+
+      li {
+        display: inline-block;
+        padding-right: 20px;
+        position: relative;
+
+        &:not(:last-child) {
+          &::before {
+            content: "-";
+            position: absolute;
+            right: 5px;
+            color: $color-white;
+          }
+        }
+
+        a {
+          position: relative;
+          color: $color-white;
+          font-size: 15px;
+          transition: .3s ease;
+        }
+      }
+    }
+  }
+
+  &__copyright {
+    p {
+      color: $color-white;
+      font-size: 15px;
+
+      .line {
+        height: 1px;
+        width: 50px;
+        background: $bg-button-2;
+        position: relative;
+        display: inline-block;
+      }
+    }
+  }
+}
